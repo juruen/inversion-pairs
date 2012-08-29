@@ -14,8 +14,6 @@ A user named Rachel orders her favourite books in a list:
 2. Book B
 3. Book C
 4. Book D
-.  ...  .
-n. Book X
 
 If you want to compare Rachel with David, you take David's list.
 
@@ -25,8 +23,6 @@ Say David's list is:
 2. Book B 
 3. Book D
 4. Book A
-.  .... . 
-n  Book X
 
 You would create a vector as follow:
 
