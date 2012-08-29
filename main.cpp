@@ -74,11 +74,11 @@ inversion_pairs<T> _merge_sort(
 }
 
 template<class T>
-inversion_pairs<T> merge_sort(T vec) {
+inversion_pairs<T> compute_inversion_pairs(T vec) {
   return _merge_sort<T>(vec.begin(), vec.end() - 1);
 }
 
 int main()
 {
-  cout << merge_sort<vector<int> >(vector<int>({4,3,2,5})) << endl;
+  cout << compute_inversion_pairs<vector<int> >(vector<int>({4,3,2,5})) << endl;
 }
