@@ -3,13 +3,13 @@
 
 using namespace std;
 
-template<class T, typename ContainerType>
+template<class T>
 struct inversion_pairs
 {
   unsigned int split;
-  ContainerType container;
+  T container;
 
-  inversion_pairs(const ContainerType& nvec) : container(nvec), split (0) {};
+  inversion_pairs(const T& nvec) : container(nvec), split (0) {};
   inversion_pairs(inversion_pairs _left, inversion_pairs _right)
     : 
       split(_left.split + _right.split),
@@ -17,11 +17,12 @@ struct inversion_pairs
   {
   }
 
-  friend ostream& operator<<(ostream& out, const inversion_pairs<T, ContainerType>& ip)
+  friend ostream& operator<<(ostream& out, const inversion_pairs<T>& pairs)
   {
-    out << "split: " << ip.split << endl;
-    for (typename ContainerType::const_iterator it = ip.container.begin();
-        it != ip.container.end(); 
+    out << "Number of inversion pairs: " << pairs.split << endl;
+    out << "Sorted vector: " << endl;
+    for (class T::const_iterator it = pairs.container.begin();
+        it != pairs.container.end(); 
         ++it)
     {
       out << *it << endl;
@@ -31,29 +32,29 @@ struct inversion_pairs
   }
 };
 
-template<class T, typename ContainerType>
-inversion_pairs<T, ContainerType> _merge_sort(
-    const typename ContainerType::iterator& begin,
-    const typename ContainerType::iterator& last
+template<class T>
+inversion_pairs<T> _merge_sort(
+    const class T::iterator& begin,
+    const class T::iterator& last
     )
 {
 
   if (last == begin) {
     // Break recursion
-    return ContainerType(1, *begin);
+    return T(1, *begin);
   }
 
   unsigned int m = (distance(begin, last)) / 2;
-  inversion_pairs<T, ContainerType> left(_merge_sort<T, ContainerType>(begin, begin + m));
-  inversion_pairs<T, ContainerType> right(_merge_sort<T, ContainerType>(begin + m + 1, last));
+  inversion_pairs<T> left(_merge_sort<T>(begin, begin + m));
+  inversion_pairs<T> right(_merge_sort<T>(begin + m + 1, last));
 
   // Start merging
-  typename ContainerType::const_iterator left_it = left.container.begin();
-  typename ContainerType::const_iterator right_it = right.container.begin();
+  class T::const_iterator left_it = left.container.begin();
+  class T::const_iterator right_it = right.container.begin();
 
-  inversion_pairs<T, ContainerType> pairs(left, right);
+  inversion_pairs<T> pairs(left, right);
   
-  typename ContainerType::iterator result_it = pairs.container.begin();
+  class T::iterator result_it = pairs.container.begin();
   while (1) {
     if (*right_it < *left_it) {
       *result_it++ = *right_it++;
@@ -62,25 +63,22 @@ inversion_pairs<T, ContainerType> _merge_sort(
       *result_it++ = *left_it++;
    }
     if (left_it == left.container.cend()) {
-      copy(right_it, right.end_it(), result_it);
+      copy(right_it, right.container.cend(), result_it);
       return pairs;
     }
     if (right_it == right.container.cend()) {
-      copy(left_it, left.end_it(), result_it);
+      copy(left_it, left.container.cend(), result_it);
       return pairs;
     }
   }
 }
 
-template<class T, typename ContainerType>
-inversion_pairs<T, ContainerType> merge_sort(ContainerType vec) {
-  return _merge_sort<T, ContainerType>(vec.begin(), vec.end() - 1);
+template<class T>
+inversion_pairs<T> merge_sort(T vec) {
+  return _merge_sort<T>(vec.begin(), vec.end() - 1);
 }
 
 int main()
 {
-  static const int arr[] = {4, 3, 2, 5}; //{8, 7, 6, 5, 4, 3, 2, 1};
-  vector<int> foo(arr, arr + sizeof(arr) / sizeof(arr[0]));
-  inversion_pairs<int, vector<int> > pairs = merge_sort<int, vector<int> >(foo);
-  cout << pairs << endl;
+  cout << merge_sort<vector<int> >(vector<int>({4,3,2,5})) << endl;
 }
