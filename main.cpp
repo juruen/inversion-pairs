@@ -21,9 +21,7 @@ struct inversion_pairs
   {
     out << "Number of inversion pairs: " << pairs.split << endl;
     out << "Sorted vector: " << endl;
-    for (class T::const_iterator it = pairs.container.begin();
-        it != pairs.container.end(); 
-        ++it)
+    for (auto it = pairs.container.begin(); it != pairs.container.end(); ++it)
     {
       out << *it << endl;
     }
@@ -49,12 +47,12 @@ inversion_pairs<T> _merge_sort(
   inversion_pairs<T> right(_merge_sort<T>(begin + m + 1, last));
 
   // Start merging
-  class T::const_iterator left_it = left.container.begin();
-  class T::const_iterator right_it = right.container.begin();
+  auto left_it = left.container.cbegin();
+  auto right_it = right.container.cbegin();
 
   inversion_pairs<T> pairs(left, right);
   
-  class T::iterator result_it = pairs.container.begin();
+  auto result_it = pairs.container.begin();
   while (1) {
     if (*right_it < *left_it) {
       *result_it++ = *right_it++;
