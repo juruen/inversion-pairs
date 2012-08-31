@@ -1,4 +1,5 @@
 #include <vector>
+#include <iterator>
 #include <iostream>
 
 using namespace std;
@@ -21,10 +22,12 @@ struct inversion_pairs
   {
     out << "Number of inversion pairs: " << pairs.split << endl;
     out << "Sorted vector: " << endl;
-    for (auto it = pairs.container.begin(); it != pairs.container.end(); ++it)
-    {
-      out << *it << endl;
-    }
+
+    std::copy(
+        pairs.container.begin(),
+        pairs.container.end(),
+        std::ostream_iterator<typename T::value_type>(std::cout, "\n")
+      );
 
     return out;
   }
