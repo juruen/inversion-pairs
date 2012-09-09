@@ -79,4 +79,6 @@ inversion_pairs<T> compute_inversion_pairs(T vec) {
 int main()
 {
   cout << compute_inversion_pairs<vector<int> >(vector<int>({4,3,2,5})) << endl;
+  cout << compute_inversion_pairs<vector<int> >(vector<int>({1,2,3,4})) << endl;
+  cout << compute_inversion_pairs<vector<int> >(vector<int>({4,1,2,3})) << endl;
 }
