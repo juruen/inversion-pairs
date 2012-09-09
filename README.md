@@ -4,7 +4,7 @@ inversion-pairs
 C++ Inversion-pairs algorithm using some c++11 features.
 
 Given a list or vector of elements, it will compute the
-number of inversion pairs found in it.
+number of inversion pairs found on it.
 
 This is useful to compare how close a user is to other users.
 
@@ -24,7 +24,7 @@ Say David's list is:
 3. Book D
 4. Book A
 
-You would create a vector as follow:
+You would create a vector as follows:
 
 [4, 2, 1, 3]
 
